@@ -1,0 +1,58 @@
+@baseUrl = http://127.0.0.1:5001
+@json = application/json
+@token = REPLACE_WITH_JWT_TOKEN
+@restaurantId = 64f1234567890abcdef1234
+
+### Register
+POST {{baseUrl}}/api/auth/register
+Content-Type: {{json}}
+
+{
+  "name": "testuser",
+  "email": "test@example.com",
+  "password": "Password123"
+}
+
+### Add Restaurant
+POST {{baseUrl}}/api/restaurants
+Content-Type: {{json}}
+
+{
+  "name": "Downtown Bistro",
+  "description": "Casual dining with pasta and grilled dishes.",
+  "address": "123 King St W, Toronto, ON",
+  "lat": 43.6532,
+  "lng": -79.3832,
+  "images": [
+    "https://images.example.com/restaurants/downtown-bistro-1.jpg"
+  ]
+}
+
+### Login
+POST {{baseUrl}}/api/auth/login
+Content-Type: {{json}}
+
+{
+  "email": "test@example.com",
+  "password": "Password123"
+}
+
+### Get Restaurants
+GET {{baseUrl}}/api/restaurants
+
+### Get Nearby Restaurants
+GET {{baseUrl}}/api/restaurants/nearby?lat=43.6532&lng=-79.3832
+
+### Get Reviews For Restaurant
+GET {{baseUrl}}/api/reviews/{{restaurantId}}
+
+### Add Review
+POST {{baseUrl}}/api/reviews
+Content-Type: {{json}}
+Authorization: Bearer {{token}}
+
+{
+  "restaurantId": "{{restaurantId}}",
+  "rating": 5,
+  "comment": "Great food and quick service."
+}
